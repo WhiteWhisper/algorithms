@@ -5,10 +5,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<Integer> mas = new ArrayList<>(Arrays.asList(2,3,7,1,9,12,4));
-        //mas.sort(null);
         mas = selectionSort(mas);
         System.out.println(mas);
-        System.out.println(binarySearch(45, mas));
+        System.out.println(recursArraySize(mas));
     }
 
     public static int binarySearch(Integer x, List<Integer> mas) {
@@ -50,5 +49,19 @@ public class Main {
             }
         }
         return mas;
+    }
+
+    public static int recursArraySum(List<Integer> mas) {
+        if (mas.size()==1) {
+            return mas.get(0);
+        } else return mas.get(mas.size()-1)+recursArraySum(mas.subList(0,mas.size()-1));
+    }
+
+    public static int recursArraySize(List<Integer> mas) {
+        if (mas.size() > 1) {
+            return 1+recursArraySize(mas.subList(0,mas.size()-1));
+        } else {
+            return 1;
+        }
     }
 }
