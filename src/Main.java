@@ -5,9 +5,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<Integer> mas = new ArrayList<>(Arrays.asList(2,3,7,1,9,12,4));
-        mas = selectionSort(mas);
         System.out.println(mas);
-        System.out.println(recursArraySize(mas));
+        quickSort(mas);
+        System.out.println(mas);
     }
 
     public static int binarySearch(Integer x, List<Integer> mas) {
@@ -62,6 +62,29 @@ public class Main {
             return 1+recursArraySize(mas.subList(0,mas.size()-1));
         } else {
             return 1;
+        }
+    }
+
+    public static int searchArrayMax(List<Integer> mas) {
+        if (mas.size()==2)
+            return mas.get(0) > mas.get(1) ? mas.get(0) : mas.get(1);
+        int submax = searchArrayMax(mas.subList(1, mas.size()));
+        return mas.get(0) > submax ? mas.get(0) : submax;
+    }
+
+    public static void quickSort(List<Integer> mas) {
+        if (mas.size() >= 2) {
+            int pivot = 0;
+            for (int i = 1; i < mas.size(); ++i) {
+                if (mas.get(i) < mas.get(pivot)) {
+                    Integer tmp = mas.get(i);
+                    mas.remove(i);
+                    mas.add(0, tmp);
+                    ++pivot;
+                }
+            }
+            quickSort(mas.subList(0, pivot));
+            quickSort(mas.subList(pivot+1, mas.size()));
         }
     }
 }
